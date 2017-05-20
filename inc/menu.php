@@ -9,6 +9,8 @@ function museo_historia_plugin_menu(){
     add_submenu_page(basename(__FILE__)."_museo", 'Periodos', 'Periodos', 'manage_museo', 'edit.php?post_type=periodo', NULL);
     add_submenu_page(basename(__FILE__)."_museo", 'Topicos', 'Topicos', 'manage_museo', 'edit.php?post_type=topico', NULL);
     add_submenu_page(basename(__FILE__)."_museo", 'Ejes', 'Ejes', 'manage_museo', 'edit.php?post_type=eje', NULL);
+    add_submenu_page(basename(__FILE__)."_museo", 'Niveles', 'Niveles', 'manage_museo', 'edit-tags.php?taxonomy=nivel', NULL);
+    add_submenu_page(basename(__FILE__)."_museo", 'Grados', 'Grados', 'manage_museo', 'edit-tags.php?taxonomy=grado', NULL);
     add_submenu_page(basename(__FILE__)."_museo", 'Objetos', 'Objetos', 'manage_museo', 'edit.php?post_type=objeto', NULL);
     add_submenu_page(basename(__FILE__)."_museo", 'Mapas', 'Mapas', 'manage_museo', 'edit.php?post_type=mapa', NULL);
     $submenu[basename(__FILE__)."_museo"][0][0] = "Opciones";

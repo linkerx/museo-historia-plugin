@@ -10,6 +10,7 @@ function museo_historia_plugin_eje_save($id) {
         if (defined('DOING_AJAX') && DOING_AJAX)
                 return $id;
 
-        update_post_meta($id,'museo_historia_plugin_eje_perfil',$_POST['museo_historia_plugin_eje_perfil_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_alumno',$_POST['museo_historia_plugin_eje_alumno_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_docente',$_POST['museo_historia_plugin_eje_docente_editor']);
     }
 }
