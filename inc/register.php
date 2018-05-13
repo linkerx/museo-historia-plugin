@@ -53,3 +53,4 @@ include_once 'types/mapa/columns.php';
 include_once 'types/mapa/metaboxes.php';
 include_once 'types/mapa/assets.php';
 include_once 'types/mapa/save.php';
+include_once 'types/mapa/ajax.php';

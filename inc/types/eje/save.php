@@ -10,7 +10,10 @@ function museo_historia_plugin_eje_save($id) {
         if (defined('DOING_AJAX') && DOING_AJAX)
                 return $id;
 
-        update_post_meta($id,'museo_historia_plugin_eje_alumno',$_POST['museo_historia_plugin_eje_alumno_editor']);
-        update_post_meta($id,'museo_historia_plugin_eje_docente',$_POST['museo_historia_plugin_eje_docente_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_actividades',$_POST['museo_historia_plugin_eje_actividades_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_objetivos',$_POST['museo_historia_plugin_eje_objetivos_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_recurso_didactico',$_POST['museo_historia_plugin_eje_recurso_didactico_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_contenido_oficial',$_POST['museo_historia_plugin_eje_contenido_oficial_editor']);
+        update_post_meta($id,'museo_historia_plugin_eje_dimension_local',$_POST['museo_historia_plugin_eje_dimension_local_editor']);
     }
 }
