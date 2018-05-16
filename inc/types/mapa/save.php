@@ -13,5 +13,7 @@ function museo_historia_plugin_mapa_save($id) {
             update_post_meta($id,'museo_historia_plugin_mapa_datos1',$_POST['museo_historia_plugin_mapa_datos1']);
             update_post_meta($id,'museo_historia_plugin_mapa_datos2',$_POST['museo_historia_plugin_mapa_datos2']);
             update_post_meta($id,'museo_historia_plugin_mapa_datos3',$_POST['museo_historia_plugin_mapa_datos3']);
+
+            update_post_meta($id,'museo_historia_plugin_mapa_fondo',$_POST['museo_historia_plugin_mapa_fondo']);
     }
 }

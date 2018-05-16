@@ -8,15 +8,21 @@ var defaultLat = -40.839618;
 var defaultLon = -62.937394;
 var defaultZoom = 10;
 
+var access_token = "pk.eyJ1IjoibG5raWduZW8iLCJhIjoiY2pmcG50Z2p4MW9udzJ4cWVhYjJlamdsOSJ9.onjuXh3To0bEWHYCDTcSMg";
+
 var fondos = [
   {
-    nombre: "rios y rutas",
-    url: "https://api.mapbox.com/styles/v1/lnkigneo/cjfvfp0bfa54r2sqphi54j02a/tiles/256/{z}/{x}/{y}"
+    nombre: "Político con rutas y calles",
+    url: "https://api.mapbox.com/styles/v1/lnkigneo/cjfpo73gq48dd2rn0a5eedmft/tiles/256/{z}/{x}/{y}"
   },
   {
-    nombre: "alturas",
-    url: ""
+    nombre: "Imagen satelital",
+    url: "https://api.mapbox.com/styles/v1/lnkigneo/cjh8v9qhz04292sqj95mnkhnf/tiles/256/{z}/{x}/{y}"
   },
+  {
+    nombre: "Antiguo",
+    url: "https://api.mapbox.com/styles/v1/lnkigneo/cjh8w9ztj05212sqjvnzmdthd/tiles/256/{z}/{x}/{y}"
+  }
 ]
 
 var fondoSel = 1;
@@ -51,10 +57,12 @@ jQuery(window).load(function(){
 
     console.log(mapas);
     // carga mapa inicial
-    cargar_mapa(1);
+    dibujoSel = 1;
+    cargar_mapa();
 
     // EVENTS
     jQuery("select[name='museo_historia_plugin_mapa_dibujo_nro']").on("change",function(){cambio_dibujo(this)})
+    jQuery("select[name='museo_historia_plugin_mapa_fondo']").on("change",function(){cambio_fondo(this)})
 });
 
 function init_datos(nro_mapa){
@@ -71,6 +79,7 @@ function init_datos(nro_mapa){
     mapas[nro_mapa-1].lon = defaultLon;
     mapas[nro_mapa-1].zoom = defaultZoom;
   }
+  fondoSel = jQuery("#guardar select[name=museo_historia_plugin_mapa_fondo").val();
 }
 
 function cargar_mapa(nro_mapa){
@@ -79,14 +88,14 @@ function cargar_mapa(nro_mapa){
   console.log("creado");
   //limpiar_mapa();
   //console.log("limpiado");
-  init_mapa(nro_mapa);
+  init_mapa(dibujoSel);
   console.log("inicializado");
-  cargar_fondo();
+  cargar_fondo(fondoSel);
   console.log("fondo");
   cargar_herramientas();
   bind_all();
   console.log("herramientas");
-  cargar_guardado(nro_mapa);
+  cargar_guardado(dibujoSel);
   console.log("dibujo");
 }
 
@@ -114,8 +123,8 @@ function bind_all() {
   mapa.on('zoomend',function(e){guardar_pos_mapa()});
 }
 
-function cargar_fondo(){
-    L.tileLayer('?access_token=pk.eyJ1IjoibG5raWduZW8iLCJhIjoiY2pmcG50Z2p4MW9udzJ4cWVhYjJlamdsOSJ9.onjuXh3To0bEWHYCDTcSMg', {
+function cargar_fondo(id_fondo){
+    L.tileLayer(fondos[id_fondo].url+'?access_token='+access_token, {
         attribution : '&copy; Mapbox &copy; OpenStreetMap contributors, by linkerx',
         transparent: true
     }).addTo(mapa);
@@ -168,8 +177,14 @@ function cargar_capas(geoJson) {
 
 function cambio_dibujo(select) {
   dibujoSel = select.value;
-  cargar_mapa(dibujoSel);
+  cargar_mapa();
   console.log(dibujoSel,mapas[dibujoSel-1]);
+}
+
+function cambio_fondo(select) {
+  fondoSel = select.value;
+  cargar_mapa();
+  console.log(fondoSel,mapas[dibujoSel-1]);
 }
 
 function guardar_capas(){
