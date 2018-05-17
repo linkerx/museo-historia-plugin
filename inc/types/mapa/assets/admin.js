@@ -139,6 +139,10 @@ function cargar_herramientas(){
         }
     });
     mapa.addControl(barra);
+
+    new LeafletToolbar.EditToolbar.Popup({
+      position: 'topleft'
+    }).addTo(mapa, dibujado);
 }
 
 function cargar_guardado(nro_mapa){
