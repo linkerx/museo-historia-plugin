@@ -17,6 +17,11 @@ function museo_historia_plugin_mapa_admin_head($hook) {
             wp_enqueue_style('leaflet_toolbar_css',$plugindir.'/assets/node_modules/leaflet-toolbar/dist/leaflet.toolbar.css');
             wp_enqueue_script('leaflet_draw_toolbar_js',$plugindir."/assets/node_modules/leaflet-draw-toolbar/dist/leaflet.draw-toolbar.js");
             wp_enqueue_style('leaflet_draw_toolbar_css',$plugindir.'/assets/node_modules/leaflet-draw-toolbar/dist/leaflet.draw-toolbar.css');
+
+            wp_enqueue_script('leaflet_draw_toolbar_colorpicker_js',$plugindir.'/assets/lib/colorpicker.js');
+
+            wp_enqueue_style('fa_css',$plugindir.'/assets/lib/font-awesome-4.7.0/css/font-awesome.css');
+
             wp_enqueue_script('museo_historia_plugin_mapa_admin_js',$plugindir.'/assets/admin.js');
             wp_enqueue_style('museo_historia_plugin_mapa_admin_css',$plugindir.'/assets/admin.css');
         }

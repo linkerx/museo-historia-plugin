@@ -1,6 +1,25 @@
 var mapa = null;
 var dibujado = null;
-var barra = null
+var barra = null;
+var popup = null;
+
+var editActions = [
+          L.Toolbar2.EditAction.Popup.Edit,
+          L.Toolbar2.EditAction.Popup.Delete,
+          L.Toolbar2.Action.extend({
+                    options: {
+    toolbarIcon: {
+      className: 'leaflet-color-picker',
+      html: '<span class="fa fa-eyedropper"></span>'
+    },
+    subToolbar: new L.Toolbar2({ actions: [
+      L.ColorPicker.extendOptions({ color: '#db1d0f' }),
+      L.ColorPicker.extendOptions({ color: '#025100' }),
+      L.ColorPicker.extendOptions({ color: '#ffff00' }),
+      L.ColorPicker.extendOptions({ color: '#0000ff' })
+    ]})
+  }})
+];
 
 var dibujoSel = 1;
 
@@ -140,9 +159,11 @@ function cargar_herramientas(){
     });
     mapa.addControl(barra);
 
-    new LeafletToolbar.EditToolbar.Popup({
+/*
+    popup = new L.Toolbar2.Popup({
       position: 'topleft'
-    }).addTo(mapa, dibujado);
+    }).addTo(mapa,dibujado)
+*/
 }
 
 function cargar_guardado(nro_mapa){
@@ -160,6 +181,13 @@ function generar_capa(event) {
       console.log(ta.value);
     })
     dibujado.addLayer(layer);
+
+    layer.on('click', function(event) {
+      new L.Toolbar2.Popup(event.latlng, {
+        actions: editActions
+      }).addTo(mapa, layer);
+    });
+
     guardar_capas();
 }
 
@@ -175,6 +203,13 @@ function cargar_capas(geoJson) {
   L.geoJson(geoJson, {
     onEachFeature: function (feature, layer) {
       dibujado.addLayer(layer);
+
+      layer.on('click', function(event) {
+				new L.Toolbar2.Popup(event.latlng, {
+					actions: editActions
+				}).addTo(mapa, layer);
+			});
+
     }
   });
 }
