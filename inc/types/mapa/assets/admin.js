@@ -22,24 +22,26 @@ var editActions = [
             ]})
         }
     }),
+    /*
     L.Toolbar2.Action.extend({
         options: {
           toolbarIcon: {
             className: 'lnk-text-input',
             html: '<span class="fa fa-pencil"></span>'
-          },
-          subToolbar: {
-            html: '<textarea>Sarasasasaa</textarea>'
           }
         },
-        initialize: function(map,myAction){
-          this.map = map;
-          this.myAction = myAction;
-        },
+        initialize: function(map, shape, options) {
+      		this._map = map;
+      		this._shape = shape;
+
+      		L.setOptions(this, options);
+      		L.Toolbar2.Action.prototype.initialize.call(this, map, options);
+      	},
         addHooks: function(){
-          this.myAction.disable();
+          this._shape.openPopup();
         }
     })
+    */
 ];
 
 var dibujoSel = 1;
@@ -188,6 +190,20 @@ function bind_layer(layer) {
     console.log("color cambiado");
     guardar_capas();
   });
+
+  layer.bindPopup(getLayerEditor(layer),{autoPan: false});
+}
+
+function getLayerEditor(layer){
+  html= "";
+  html+= "<div class='text-editor-popup'>";
+
+  html+= "<div class='title'>"+"Layer id:"+layer._leaflet_id+"</div>";
+  html+= "<div class='container'>";
+  html+= "<textarea></textarea>";
+  html+= "</div>"
+  html+= "</div>";
+  return html;
 }
 
 function cargar_fondo(id_fondo){
@@ -215,12 +231,16 @@ function cargar_guardado(nro_mapa){
   }
 }
 
+function init_layer_props(layer) {
+  layer.feature = {};
+  layer.feature.type = 'Feature';
+  layer.feature.properties = {};
+  layer.feature.properties.color = layer.options.color;
+}
+
 function generar_capa(event) {
     var layer = event.layer;
-    layer.feature = {};
-    layer.feature.type = 'Feature';
-    layer.feature.properties = {};
-    layer.feature.properties.color = layer.options.color;
+    init_layer_props(layer);
     dibujado.addLayer(layer);
     bind_layer(layer);
     guardar_capas();
@@ -238,6 +258,7 @@ function editar_capas(e) {
 function cargar_capas(geoJson) {
   L.geoJson(geoJson, {
     onEachFeature: function (feature, layer) {
+      layer.feature.properties = feature.properties;
       if(feature.properties.color != undefined)
         layer.options.color = feature.properties.color;
       dibujado.addLayer(layer);

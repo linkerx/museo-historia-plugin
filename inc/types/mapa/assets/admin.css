@@ -10,3 +10,23 @@
 .leaflet-toolbar-0 {
   border: 0;
 }
+
+.leaflet-popup {
+position: absolute;
+right:0;
+top:-200px;
+width: 250px;
+height: 180px;
+text-align: center;
+}
+
+.leaflet-popup-tip-container {
+  display:none;
+}
+
+.leaflet-popup .title {
+  background-color: #777;
+  padding: 5px;
+  color: #fff;
+  font-weight: bold;
+}
