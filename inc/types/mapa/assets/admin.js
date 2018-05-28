@@ -198,7 +198,9 @@ function getLayerEditor(layer){
   html= "";
   html+= "<div class='text-editor-popup'>";
 
-  html+= "<div class='title'>"+"Layer id:"+layer._leaflet_id+"</div>";
+  html+= "<div class='title'>"+"Titulo: ";
+  html+= "<input name='popup_shape_"+layer._leaflet_id+"' value='"+layer._leaflet_id+"' />";
+  html+= "</div>";
   html+= "<div class='container'>";
   html+= "<textarea></textarea>";
   html+= "</div>"
