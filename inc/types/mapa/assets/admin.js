@@ -195,14 +195,12 @@ function bind_layer(layer) {
 }
 
 function getLayerEditor(layer){
-  html= "";
-  html+= "<div class='text-editor-popup'>";
-
+  html= "<div id='text-popup-"+layer._leaflet_id+"' class='text-editor-popup'>";
   html+= "<div class='title'>"+"Titulo: ";
-  html+= "<input name='popup_shape_"+layer._leaflet_id+"' value='"+layer._leaflet_id+"' />";
+  html+= "<input onChange='guardarTextos();' name='popup_shape_title_"+layer._leaflet_id+"' value='"+layer.feature.properties.title+"' />";
   html+= "</div>";
   html+= "<div class='container'>";
-  html+= "<textarea></textarea>";
+  html+= "<textarea name='popup_shape_text_"+layer._leaflet_id+"'>"+layer.feature.properties.text+"</textarea>";
   html+= "</div>"
   html+= "</div>";
   return html;
