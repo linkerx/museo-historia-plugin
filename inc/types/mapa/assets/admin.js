@@ -195,15 +195,48 @@ function bind_layer(layer) {
 }
 
 function getLayerEditor(layer){
-  html= "<div id='text-popup-"+layer._leaflet_id+"' class='text-editor-popup'>";
+
+  if(debug)
+    console.log(layer.feature.properties.title,layer.feature.properties.text);
+
+  var title = "Forma Nro: "+layer._leaflet_id;
+  if(layer.feature.properties.title != undefined) {
+    title = layer.feature.properties.title;
+  }
+
+  var text = "Sin descripción.";
+  if(layer.feature.properties.text != undefined) {
+    text = layer.feature.properties.text;
+  }
+
+  html= "<div id='text-popup-"+layer._leaflet_id+"' shape_id='"+layer._leaflet_id+"' class='text-editor-popup'>";
   html+= "<div class='title'>"+"Titulo: ";
-  html+= "<input onChange='guardarTextos();' name='popup_shape_title_"+layer._leaflet_id+"' value='"+layer.feature.properties.title+"' />";
+  html+= "<input onChange='guardarTextos("+layer._leaflet_id+");' name='popup_shape_title_"+layer._leaflet_id+"' value='"+title+"' />";
   html+= "</div>";
   html+= "<div class='container'>";
-  html+= "<textarea name='popup_shape_text_"+layer._leaflet_id+"'>"+layer.feature.properties.text+"</textarea>";
+  html+= "<textarea onChange='guardarTextos("+layer._leaflet_id+");' name='popup_shape_text_"+layer._leaflet_id+"'>"+text+"</textarea>";
   html+= "</div>"
+  html+= "<div style='clear:both;'></div>"
   html+= "</div>";
   return html;
+}
+
+function guardarTextos(id) {
+  var title = jQuery("#text-popup-"+id+" .title input").val();
+  var text = jQuery("#text-popup-"+id+" textarea").val();
+
+  if(debug)
+    console.log(id,title,text);
+
+  var layer = dibujado.getLayer(id);
+
+  if(debug)
+    console.log(layer);
+
+  layer.feature.properties.title = title;
+  layer.feature.properties.text = text;
+
+  guardar_capas();
 }
 
 function cargar_fondo(id_fondo){

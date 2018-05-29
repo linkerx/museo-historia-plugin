@@ -15,12 +15,19 @@
 position: absolute;
 right:0;
 top:-200px;
-width: 250px;
-height: 180px;
+width: 350px;
+height: 200px;
 text-align: center;
 }
 
-.leaflet-popup-tip-container {
+.leaflet-popup-content-wrapper,
+.leaflet-popup-toolbar {
+  box-shadow: 0 3px 3px #ccc;
+  border: 1px solid #ccc;
+}
+
+.leaflet-popup-tip-container,
+.leaflet-toolbar-tip {
   display:none;
 }
 
@@ -29,4 +36,16 @@ text-align: center;
   padding: 5px;
   color: #fff;
   font-weight: bold;
+  height: 30px;
+}
+
+.leaflet-popup .text-editor-popup input{
+  float: right;
+  width: 250px;
+}
+
+.leaflet-popup .text-editor-popup textarea {
+  width:300px;
+  margin-top:5px;
+  height:75px;
 }
