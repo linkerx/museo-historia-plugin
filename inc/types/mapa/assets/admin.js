@@ -175,9 +175,22 @@ function bind_all() {
 function bind_layer(layer) {
 
   layer.on('click', function(event) {
-    new L.Toolbar2.Popup(event.latlng, {
-      actions: editActions,
-    }).addTo(mapa, layer);
+
+    if(debug)
+      console.log(this,event.layer);
+
+    if (layer instanceof L.Marker) {
+      if(debug)
+        console.log('marker');
+    } else {
+      if(debug)
+        console.log('not marker');
+      // si no es marcador, mostrar menu popup
+      new L.Toolbar2.Popup(event.latlng, {
+        actions: editActions,
+      }).addTo(mapa, layer);
+    }
+
   });
 
   layer.on('color_change',function(){
