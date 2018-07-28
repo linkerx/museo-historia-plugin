@@ -204,7 +204,10 @@ function bind_layer(layer) {
     guardar_capas();
   });
 
-  layer.bindPopup(getLayerEditor(layer),{autoPan: false});
+  var layerPopup = layer.bindPopup(getLayerEditor(layer),{autoPan: false});
+  layerPopup.on("popupclose", function(e) {
+      alert("Hi!");
+    });
 }
 
 function getLayerEditor(layer){
